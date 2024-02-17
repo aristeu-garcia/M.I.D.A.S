@@ -1,4 +1,7 @@
-from django.http import JsonResponse
+from rest_framework import generics
+from .models import Users
+from .serializers import Serializer
 
-def HealthCheck(request):
-    return JsonResponse({'message': 'ok'})
+class UserModelListView(generics.ListAPIView):
+    queryset = Users.objects.all()
+    serializer_class = Serializer
