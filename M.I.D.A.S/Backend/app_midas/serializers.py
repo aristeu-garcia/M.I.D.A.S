@@ -1,7 +1,14 @@
 from rest_framework import serializers
-from .models import User
+from .models import Client,ClientGroup
 
-class Serializer(serializers.ModelSerializer):
+
+class ClientSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Client
+        fields = ['id', 'name', 'email']
+
+
+class ClientGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClientGroup
         fields = '__all__'

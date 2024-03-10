@@ -3,9 +3,16 @@ from django.contrib.auth.models import User
 
 class Group(models.Model):
     info = models.CharField(max_length=150, null=False, blank=False)
-    
     def __str__(self) -> str:
         return self.info
+
+class Client(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
     
     
 class ClientGroup(models.Model):

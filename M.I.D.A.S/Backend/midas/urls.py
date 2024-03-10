@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from app_midas.views import UserModelListView
+from app_midas.views import ClientView
 
 urlpatterns = [
-    path('users/', UserModelListView.as_view(), name='users'),
-    path("admin/", admin.site.urls)
+    path('clients/', ClientView.as_view(), name='clients')
 ]
