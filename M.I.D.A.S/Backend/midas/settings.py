@@ -11,9 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path, os
-from dotenv import load_dotenv
 
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_midas.apps.AppMidasConfig',
-    'users.apps.UsersConfig'
-    # 'rest_framework'
+    # 'users.apps.UsersConfig'
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
