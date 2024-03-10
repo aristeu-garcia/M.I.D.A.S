@@ -11,17 +11,17 @@ class Group(models.Model):
 class ClientGroup(models.Model):
     user = models.ForeignKey(
         to=User,
-        on_delete=models.CASCADE,  # Ajustado para CASCADE
+        on_delete=models.CASCADE,  
         null=True,
         blank=False,
-        related_name="client_groups"  # Renomeado para evitar conflitos
+        related_name="client_groups"  
     )
     group = models.ForeignKey(
         to=Group,
-        on_delete=models.CASCADE,  # Ajustado para CASCADE
+        on_delete=models.CASCADE,  
         null=True,
         blank=False,
-        related_name="client_groups"  # Renomeado para evitar conflitos
+        related_name="client_groups"  
     )
     
     
@@ -40,14 +40,14 @@ class Strategy(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=False,
-        related_name="strategies"  # Renomeado para evitar conflitos
+        related_name="strategies"  
     )
     commodity = models.ForeignKey(
         to=Commodity,
-        on_delete=models.CASCADE,  # Ajustado para CASCADE
+        on_delete=models.CASCADE,  
         null=False,
         blank=False,
-        related_name="strategies"  # Renomeado para evitar conflitos
+        related_name="strategies"  
     )
     
     def __str__(self) -> str:
@@ -61,24 +61,24 @@ class Site(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=False,
-        related_name="sites"  # Renomeado para evitar conflitos
+        related_name="sites"  
     )
     
     
 class StrategySite(models.Model):
     strategy = models.ForeignKey(
         to=Strategy,
-        on_delete=models.CASCADE,  # Ajustado para CASCADE
+        on_delete=models.CASCADE,  
         null=True,
         blank=False,
-        related_name="strategy_sites"  # Renomeado para evitar conflitos
+        related_name="strategy_sites"  
     )
     site = models.ForeignKey(
         to=Site,
-        on_delete=models.CASCADE,  # Ajustado para CASCADE
+        on_delete=models.CASCADE,
         null=True,
         blank=False,
-        related_name="strategy_sites"  # Renomeado para evitar conflitos
+        related_name="strategy_sites"
     )
     
     
@@ -89,22 +89,22 @@ class Tokens(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=False,
-        related_name="tokens"  # Renomeado para evitar conflitos
+        related_name="tokens" 
     )
     
     
 class StrategyToken(models.Model):
     strategy = models.ForeignKey(
         to=Strategy,
-        on_delete=models.CASCADE,  # Ajustado para CASCADE
+        on_delete=models.CASCADE,
         null=True,
         blank=False,
-        related_name="strategy_tokens"  # Renomeado para evitar conflitos
+        related_name="strategy_tokens"
     )
     token = models.ForeignKey(
         to=Tokens,
-        on_delete=models.CASCADE,  # Ajustado para CASCADE
+        on_delete=models.CASCADE,
         null=True,
         blank=False,
-        related_name="strategy_tokens"  # Renomeado para evitar conflitos
+        related_name="strategy_tokens"
     )
