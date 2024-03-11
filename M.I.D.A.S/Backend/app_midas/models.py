@@ -7,15 +7,16 @@ class Group(models.Model):
         return self.info
 
 class Client(models.Model):
+    class Meta:
+        db_table = 'client'
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
     
     
 class ClientGroup(models.Model):
+    
     user = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,  
