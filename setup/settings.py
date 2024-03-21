@@ -40,9 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_midas.apps.AppMidasConfig',
-    'users.apps.UsersConfig'
-    # 'rest_framework'
+    'midas.apps.MidasConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'midas.urls'
+ROOT_URLCONF = 'setup.urls'
 
 TEMPLATES = [
     {
@@ -73,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'midas.wsgi.application'
+WSGI_APPLICATION = 'setup.wsgi.application'
 
 
 # Database
@@ -123,11 +122,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'midas/static')
-]
+# STATICFILES_DIRS = [
+#         os.path.join(BASE_DIR, 'midas/static')
+# ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

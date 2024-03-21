@@ -1,9 +1,6 @@
-from django.contrib import admin
-from django.urls import path, include
-# from app_midas.views import UserModelListView
+from django.urls import path
+from .views import index
 
 urlpatterns = [
-    # path('users/', UserModelListView.as_view(), name='users'),
-    path("admin/", admin.site.urls),
-    path("", include("app_midas.urls")),
+    path("", index, name="index")
 ]
