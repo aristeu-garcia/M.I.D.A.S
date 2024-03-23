@@ -1,9 +1,8 @@
-from django.contrib import admin
-from django.urls import path, include
-# from app_midas.views import UserModelListView
+from django.urls import path
+from rest_framework.routers import DefaultRouter
+from app_midas.views import ClientView
 
-urlpatterns = [
-    # path('users/', UserModelListView.as_view(), name='users'),
-    path("admin/", admin.site.urls),
-    path("", include("app_midas.urls")),
-]
+router = DefaultRouter()
+router.register(r'clients', ClientView, basename='clients')
+
+urlpatterns = router.urls

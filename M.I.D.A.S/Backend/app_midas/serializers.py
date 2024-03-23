@@ -1,7 +1,17 @@
-# from rest_framework import serializers
-# from .models import Users
+from rest_framework import serializers
+from .models import Client,ClientGroup
 
-# class Serializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Users
-#         fields = '__all__'
+
+class ClientSerializer(serializers.ModelSerializer):
+    # TODO: Adicionar a seguinte expressão depois: 
+    # password = serializers.CharField(write_only=True)
+    class Meta:
+        
+        model = Client
+        fields = ['id', 'name', 'email', 'password']
+
+
+class ClientGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClientGroup
+        fields = '__all__'
