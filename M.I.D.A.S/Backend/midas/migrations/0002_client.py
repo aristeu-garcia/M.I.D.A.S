@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app_midas', '0001_initial'),
+        ('midas', '0001_initial'),
     ]
 
     operations = [
@@ -18,8 +18,5 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=254, unique=True)),
                 ('password', models.CharField(max_length=100)),
             ],
-            options={
-                'db_table': 'client',
-            },
         ),
     ]

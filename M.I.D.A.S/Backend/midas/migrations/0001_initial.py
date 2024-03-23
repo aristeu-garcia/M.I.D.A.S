@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='client_groups', to=settings.AUTH_USER_MODEL)),
-                ('group', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='client_groups', to='app_midas.group')),
+                ('group', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='client_groups', to='midas.group')),
             ],
         ),
         migrations.CreateModel(
@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
-                ('commodity', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='strategies', to='app_midas.commodity')),
+                ('commodity', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='strategies', to='midas.commodity')),
                 ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='strategies', to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -58,8 +58,8 @@ class Migration(migrations.Migration):
             name='StrategySite',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('site', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='strategy_sites', to='app_midas.site')),
-                ('strategy', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='strategy_sites', to='app_midas.strategy')),
+                ('site', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='strategy_sites', to='midas.site')),
+                ('strategy', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='strategy_sites', to='midas.strategy')),
             ],
         ),
         migrations.CreateModel(
@@ -74,8 +74,8 @@ class Migration(migrations.Migration):
             name='StrategyToken',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('strategy', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='strategy_tokens', to='app_midas.strategy')),
-                ('token', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='strategy_tokens', to='app_midas.tokens')),
+                ('strategy', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='strategy_tokens', to='midas.strategy')),
+                ('token', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='strategy_tokens', to='midas.tokens')),
             ],
         ),
     ]

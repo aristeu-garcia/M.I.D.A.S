@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app_midas', '0002_client'),
+        ('midas', '0002_client'),
     ]
 
     operations = [
