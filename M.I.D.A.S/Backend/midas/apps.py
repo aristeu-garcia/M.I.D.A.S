@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AppMidasConfig(AppConfig):
+class MidasConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'app_midas'
+    name = 'midas'
