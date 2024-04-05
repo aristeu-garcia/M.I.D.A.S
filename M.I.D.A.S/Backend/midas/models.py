@@ -1,10 +1,15 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class Client(models.Model):
+
+class Client(AbstractUser):
     name = models.CharField(max_length=200, null=False, blank=False)
-    email = models.EmailField(max_length=150, null=False, blank=False, unique=True)
+    email = models.EmailField(max_length=150, unique=True, null=True, blank=False)
+    username = models.CharField(max_length=150, null=True, blank=False)
     cellphone = models.CharField(max_length=20, null=True, blank=False)
-    password = models.CharField(max_length=20, null=False, blank=False)
+    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name', 'cellphone']
 
     def __str__(self) -> str:
         return self.name
