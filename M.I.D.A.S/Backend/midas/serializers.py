@@ -1,53 +1,96 @@
 from rest_framework import serializers
-from .models import *
+from django.contrib.auth import get_user_model
+from .models import Site, Token, Commodity, Strategy, Group
+
+
+Client = get_user_model()
+
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = ('id', 'name', 'email', 'cellphone', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = Client.objects.create_user(
+            name=validated_data['name'],
+            email=validated_data['email'],
+            username=validated_data['email'], 
+            cellphone=validated_data['cellphone'], 
+            password=validated_data['password'],
+        )
+        return user
+
 
 class SiteSerializer(serializers.ModelSerializer):
-    client = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all())
-    
     class Meta:
         model = Site
-        fields = '__all__'
+        fields = ('id', 'site', 'client')
+        
+    def create(self, validated_data):
+        # Acessa o usuário atualmente autenticado
+        user = self.context['request'].user
+        # Atribui o ID do usuário ao campo desejado
+        validated_data['client'] = user
+        # Cria o objeto com os dados validados
+        return super().create(validated_data)
         
         
-class TokenSerializer(serializers.ModelSerializer):
-    client = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all())
-    
+class TokenSerializer(serializers.ModelSerializer):   
     class Meta:
         model = Token
-        fields = '__all__'
+        fields = ('id', 'token', 'client')
+        
+    def create(self, validated_data):
+        # Acessa o usuário atualmente autenticado
+        user = self.context['request'].user
+        # Atribui o ID do usuário ao campo desejado
+        validated_data['client'] = user
+        # Cria o objeto com os dados validados
+        return super().create(validated_data)
         
         
 class CommoditySerializer(serializers.ModelSerializer):
-    client = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all())
-    
     class Meta:
         model = Commodity
-        fields = '__all__'
+        fields = ('id', 'name', 'code', 'client')
+        
+    def create(self, validated_data):
+        # Acessa o usuário atualmente autenticado
+        user = self.context['request'].user
+        # Atribui o ID do usuário ao campo desejado
+        validated_data['client'] = user
+        # Cria o objeto com os dados validados
+        return super().create(validated_data)
         
         
 class StrategySerializer(serializers.ModelSerializer):
-    commodity = serializers.PrimaryKeyRelatedField(queryset=Commodity.objects.all())
-    client = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all())
-    tokens = serializers.PrimaryKeyRelatedField(queryset=Token.objects.all(), many=True)
-    sites = serializers.PrimaryKeyRelatedField(queryset=Site.objects.all(), many=True)
-    
     class Meta:
         model = Strategy
-        fields = '__all__'
+        fields = ('id', 'name', 'client', 'commodity', 'tokens', 'sites')
+        
+    def __init__(self, *args, **kwargs):
+        super(StrategySerializer, self).__init__(*args, **kwargs)
+        user = self.context['request'].user 
+        self.fields['commodity'].queryset = Commodity.objects.filter(client=user)
+        
+    def create(self, validated_data):
+        user = self.context['request'].user        
+        validated_data['client'] = user
+        return super().create(validated_data)
         
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['client'] = instance.client.name 
+        representation['client'] = instance.client.name
         representation['commodity'] = instance.commodity.name 
-        representation['tokens'] = instance.token.token 
-        representation['sites'] = instance.site.site 
+        representation['tokens'] = [token.token for token in instance.tokens.all()]
+        representation['sites'] = [site.site for site in instance.sites.all()]
         return representation
         
         
 class GroupSerializer(serializers.ModelSerializer):
     admin = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all())
     participants = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all(), many=True)
-    
     
     class Meta:
         model = Group
